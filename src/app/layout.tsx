@@ -27,8 +27,8 @@ export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSettings();
   return {
     metadataBase: new URL(SITE_URL),
-    title: { default: "CIIC Tân Sơn Nhất | Đổi mới sáng tạo", template: "%s | CIIC Tân Sơn Nhất" },
-    description: "CIIC Tân Sơn Nhất – không gian kết nối đổi mới sáng tạo, công nghệ và nguồn lực.",
+    title: { default: settings.seoTitle, template: "%s | CIIC Tân Sơn Nhất" },
+    description: settings.seoDescription,
     keywords: settings.seoKeywords.split(",").map((item) => item.trim()),
     authors: [{ name: "CIIC Tân Sơn Nhất", url: SITE_URL }],
     creator: "CIIC Tân Sơn Nhất",
@@ -37,7 +37,7 @@ export async function generateMetadata(): Promise<Metadata> {
     alternates: { canonical: SITE_URL },
     applicationName: "CIIC Tân Sơn Nhất",
     formatDetection: { telephone: true, address: true, email: true },
-    icons: { icon: "/icon.png", apple: "/icon.png" },
+    icons: { icon: [{ url: "/icon.png", type: "image/png", sizes: "512x512" }], apple: "/apple-icon.png" },
     manifest: "/manifest.webmanifest",
     robots: {
       index: true,

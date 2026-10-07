@@ -4,7 +4,7 @@ import { AppointmentModel } from "@/models/cms";
 
 const fields: AdminField[] = [
   { name: "name", label: "Khách hàng" }, { name: "phone", label: "Số điện thoại" },
-  { name: "email", label: "Email" }, { name: "service", label: "Dịch vụ quan tâm" },
+  { name: "email", label: "Email" }, { name: "service", label: "Vai trò / nội dung quan tâm" },
   { name: "preferredDate", label: "Ngày mong muốn", type: "date" }, { name: "message", label: "Lời nhắn", type: "textarea" },
   { name: "status", label: "Trạng thái", type: "select", options: ["new", "confirmed", "completed", "cancelled"] },
 ];

@@ -28,6 +28,18 @@ const revealSelector = [
   ".contact-map-section iframe",
   ".detail-grid > *",
   ".article-layout > *",
+  ".ipf-intro .ipf-split > *",
+  ".ipf-goal-grid > *",
+  ".ipf-title-row > *",
+  ".ipf-ecosystem > *",
+  ".ipf-space-copy",
+  ".ipf-space-image",
+  ".ipf-activity-list > *",
+  ".ipf-program-cards > *",
+  ".ipf-value-grid > *",
+  ".ipf-news-grid > *",
+  ".ipf-gallery-mosaic > *",
+  ".ipf-register .ipf-split > *",
 ].join(",");
 
 const leftSelector = [
@@ -37,6 +49,7 @@ const leftSelector = [
   ".service-detail-aside",
   ".detail-image",
   ".article-toc",
+  ".ipf-space-copy",
 ].join(",");
 
 const rightSelector = [
@@ -45,6 +58,7 @@ const rightSelector = [
   ".about-grid > div:last-child",
   ".service-detail-grid > div:last-child",
   ".detail-copy",
+  ".ipf-space-image",
 ].join(",");
 
 const staggerGroups = [
@@ -56,6 +70,13 @@ const staggerGroups = [
   ".doctor-grid",
   ".contact-cards",
   ".video-grid",
+  ".ipf-goal-grid",
+  ".ipf-ecosystem",
+  ".ipf-activity-list",
+  ".ipf-program-cards",
+  ".ipf-value-grid",
+  ".ipf-news-grid",
+  ".ipf-gallery-mosaic",
 ].join(",");
 
 export function ScrollReveal() {

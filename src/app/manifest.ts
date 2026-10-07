@@ -1,17 +1,2 @@
 import type { MetadataRoute } from "next";
-
-export default function manifest(): MetadataRoute.Manifest {
-  return {
-    name: "Presmile Dental Center",
-    short_name: "Presmile",
-    description: "Nha khoa gia đình Presmile – tử tế, tận tâm, an toàn.",
-    start_url: "/",
-    display: "standalone",
-    background_color: "#ffffff",
-    theme_color: "#087f7a",
-    lang: "vi",
-    icons: [
-      { src: "/icon.png", sizes: "512x512", type: "image/png" },
-    ],
-  };
-}
+export default function manifest():MetadataRoute.Manifest{return {name:"CIIC Tân Sơn Nhất",short_name:"CIIC",description:"Trung tâm Đổi mới sáng tạo Công nghiệp Văn hóa Tân Sơn Nhất.",start_url:"/",display:"standalone",background_color:"#f4f0e6",theme_color:"#006548",lang:"vi",icons:[{src:"/icon.png",sizes:"512x512",type:"image/png",purpose:"maskable"}]}}
