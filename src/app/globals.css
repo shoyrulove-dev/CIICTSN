@@ -672,6 +672,57 @@ img { max-width: 100%; }
 /* CIIC responsive media system */
 .admin-root, .admin-login { font-family: var(--font-body), Arial, sans-serif; }
 .admin-root h1, .admin-root h2, .admin-root h3, .admin-root h4, .admin-login h1, .admin-login h2, .admin-login h3 { font-family: var(--font-body), Arial, sans-serif !important; font-kerning: normal; }
+
+/* CIIC brand theme — public footer and administration */
+.site-footer { color: #c8d9d1; background: #003f35; border-top: 5px solid #e3b44b; }
+.site-footer .footer-grid { grid-template-columns: 1.2fr .7fr .9fr 1.3fr; }
+.site-footer .footer-brand img { width: 104px; height: 104px; padding: 4px; border: 2px solid #e3b44b; border-radius: 50%; background: #fff; object-fit: cover; }
+.site-footer .footer-brand > strong { color: #fff; font-size: 16px; }
+.site-footer .footer-brand > small, .site-footer .social-row a, .site-footer .footer-contact svg { color: #e3b44b; }
+.site-footer .footer-grid a:hover { color: #f0c968; }
+.site-footer .footer-contact iframe { height: 190px; border: 1px solid rgba(227,180,75,.32); border-radius: 4px; }
+.site-footer .footer-bottom { color: #a9c1b7; border-top-color: rgba(255,255,255,.13); }
+
+.admin-root { --navy: #003f35; --teal: #006548; --teal-dark: #005540; --teal-soft: #edf6f1; color: #dce9e3; background: #002f28; }
+.admin-sidebar { border-right-color: rgba(227,180,75,.2); background: #003f35; }
+.admin-brand { border-bottom: 1px solid rgba(227,180,75,.18); }
+.admin-brand > span { display: none; }
+.admin-brand > img { width: 48px; height: 48px; padding: 2px; border: 1px solid #e3b44b; border-radius: 50%; object-fit: cover; }
+.admin-brand b { color: #f6f0df; }
+.admin-brand small { color: #a9c9bb; }
+.admin-sidebar nav a, .admin-sidebar-bottom a, .admin-sidebar-bottom button { color: #b5cec3; }
+.admin-sidebar nav a:hover, .admin-sidebar nav a.active, .admin-sidebar-bottom a:hover, .admin-sidebar-bottom button:hover, .admin-sidebar nav a.pending { color: #fff; background: rgba(227,180,75,.13); }
+.admin-sidebar nav a.active { box-shadow: inset 3px 0 #e3b44b; }
+.admin-nav-spinner { border-top-color: #e3b44b; }
+.admin-main { background: #f3f1e9; }
+.admin-top { border-bottom-color: #dfe5dc; background: #fffef9; }
+.admin-avatar { color: #003f35 !important; background: #e3b44b; }
+.admin-primary, .admin-upload-button { color: #003f35 !important; background: #e3b44b; box-shadow: 0 9px 20px rgba(159,116,23,.16); }
+.admin-primary:hover, .admin-upload-button:hover { background: #efc65e; }
+.admin-page-heading span, .admin-stat-grid small { color: #996e13; }
+.admin-manager, .admin-stat-grid a, .integration-card, .integration-help { border-color: #dbe3d9; box-shadow: 0 9px 30px rgba(0,63,53,.045); }
+.admin-welcome { background: radial-gradient(circle at 92% 0, rgba(227,180,75,.32), transparent 36%), #003f35; }
+.admin-welcome span { color: #e8c263; }
+.admin-welcome p { color: #c3d7ce; }
+.admin-welcome > a { color: #003f35; background: #e3b44b; }
+.admin-form-grid input:focus, .admin-form-grid textarea:focus, .admin-form-grid select:focus { border-color: #006548; box-shadow: 0 0 0 3px rgba(0,101,72,.09); }
+.admin-checkbox { accent-color: #006548; }
+.admin-login-art::after { background: linear-gradient(0deg, rgba(0,63,53,.94), transparent 72%); }
+.admin-login-art span { color: #e3b44b; }
+
+@media (max-width: 900px) {
+  .site-footer .footer-grid { grid-template-columns: 1fr 1fr; }
+  .site-footer .footer-brand, .site-footer .footer-contact { grid-column: 1 / -1; }
+}
+
+@media (max-width: 600px) {
+  .site-footer .footer-grid { grid-template-columns: 1fr; }
+  .site-footer .footer-brand, .site-footer .footer-contact { grid-column: auto; }
+  .admin-sidebar { overflow-x: auto; overflow-y: hidden; background: #003f35; }
+  .admin-sidebar nav { width: max-content; min-width: 100%; display: flex; }
+  .admin-sidebar nav a { width: 54px; flex: 0 0 54px; }
+  .admin-sidebar nav a.active { box-shadow: inset 0 -3px #e3b44b; }
+}
 .ipf-site { overflow-x: clip; }
 .ipf-gallery-mosaic { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: none; gap: 16px; }
 .ipf-gallery-mosaic figure, .ipf-gallery-mosaic .tile-1 { grid-row: auto; height: auto; aspect-ratio: 16 / 9; min-width: 0; }

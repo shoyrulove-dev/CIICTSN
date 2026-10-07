@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { CiicRegistrationForm } from "@/components/site/ciic-registration-form";
 import { ScrollReveal } from "@/components/site/scroll-reveal";
+import { SiteFooter } from "@/components/site/footer";
 import { getGallery, getPosts, getServices, getSettings } from "@/lib/content";
 
 export const revalidate=300;
@@ -25,6 +26,6 @@ export default async function HomePage(){
       <section className="ipf-section ipf-news" id="news"><div className="ipf-container"><div className="ipf-title-row"><div><p className="ipf-kicker">TRUNG TÂM THÔNG TIN</p><h2>Cập nhật mới</h2></div><a className="ipf-more" href="#register">NHẬN THÔNG TIN →</a></div><div className="ipf-news-grid">{posts.slice(0,3).map(post=><article key={post.slug}><div className="ipf-news-image"><Image src={post.image} alt={post.title} fill sizes="(max-width:800px) 100vw, 33vw"/></div><small>{post.publishedAt}</small><h3>{post.title}</h3><p>{post.excerpt}</p><Link href={`/${post.slug}`}>ĐỌC THÊM →</Link></article>)}</div></div></section>
       <section className="ipf-register" id="register"><div className="ipf-container ipf-split"><div><p className="ipf-kicker light">THAM GIA HỆ SINH THÁI</p><h2><span className="ipf-title-line">Cùng CIIC</span><span className="ipf-title-line">kiến tạo</span><em className="ipf-title-line">một điều mới</em></h2><p>{settings.registerBody}</p><ul><li>Người dân & thành viên cộng đồng</li><li>Doanh nghiệp, CLB, hội đoàn</li><li>Nhà trường, chuyên gia và đối tác quốc tế</li></ul></div><CiicRegistrationForm/></div></section>
     </main>
-    <footer className="ipf-footer"><div className="ipf-container ipf-footer-grid"><div className="ipf-brand"><Image src={settings.logoUrl} alt="CIIC" width={84} height={84}/><span><b>CIIC</b><small>TÂN SƠN NHẤT</small></span></div><div><b>TRUNG TÂM</b><p>{settings.contact.address}</p></div><div><b>KHÁM PHÁ</b><p><a href="#about">Giới thiệu</a><br/><a href="#ecosystem">Hệ sinh thái</a><br/><a href="#activities">Hoạt động</a></p></div><div><b>KẾT NỐI</b><p>{settings.contact.phone}<br/>www.congnghiepvanhoa.vn</p></div></div><div className="ipf-container ipf-copyright">© 2026 CIIC Tân Sơn Nhất · Văn hóa là nền tảng · Sáng tạo là động lực · Công nghệ là công cụ · Người dân là trung tâm</div></footer>
+    <SiteFooter settings={settings} services={services} />
   </div>;
 }

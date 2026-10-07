@@ -36,7 +36,7 @@ export function SiteFooter({ settings, services }: { settings: SiteSettings; ser
         <div className="footer-contact">
           <a href={settings.contact.mapUrl} target="_blank" rel="noreferrer"><Icon name="pin" />{settings.contact.address}</a>
           <a href={`tel:${settings.contact.phone.replace(/\s/g, "")}`}><Icon name="phone" />{settings.contact.phone}</a>
-          <a href={`mailto:${settings.contact.email}`}><Icon name="mail" />{settings.contact.email}</a>
+          {settings.contact.email ? <a href={`mailto:${settings.contact.email}`}><Icon name="mail" />{settings.contact.email}</a> : null}
           <span><Icon name="clock" />{settings.contact.hours}</span>
           <iframe title="Bản đồ CIIC Tân Sơn Nhất" src={mapEmbedUrl} loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
         </div>
