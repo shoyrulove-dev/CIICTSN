@@ -1,0 +1,36 @@
+{
+  "name": "ciic-tan-son-nhat",
+  "version": "1.0.0",
+  "description": "Website and CMS for CIIC Tân Sơn Nhất",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "seed": "node --env-file=.env.local scripts/seed.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "UNLICENSED",
+  "private": true,
+  "overrides": {
+    "postcss": "8.5.25",
+    "sharp": "0.35.3"
+  },
+  "dependencies": {
+    "mongoose": "^9.7.4",
+    "next": "^16.2.12",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^20.19.43",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.2.12",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^5.9.3"
+  }
+}
