@@ -13,9 +13,15 @@ export async function connectToDatabase() {
   if (cache.conn) return cache.conn;
   if (!cache.promise) {
     cache.promise = mongoose
-      .connect(uri, { dbName: process.env.MONGODB_DB || "presmile" })
+      .connect(uri, {
+        dbName: process.env.MONGODB_DB || "ciic",
+        maxPoolSize: 5,
+        minPoolSize: 1,
+        serverSelectionTimeoutMS: 5_000,
+        socketTimeoutMS: 10_000,
+      })
       .catch((error) => {
-        console.warn("MongoDB unavailable, using built-in Presmile content.", error);
+        console.warn("MongoDB unavailable, using built-in CIIC content.", error);
         cache.promise = null;
         return null;
       });

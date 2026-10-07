@@ -1,12 +1,18 @@
 import Link from "next/link";
+import { unstable_cache } from "next/cache";
 import { connectToDatabase } from "@/lib/db";
 import { AppointmentModel, GalleryModel, PostModel, ServiceModel } from "@/models/cms";
 
-export default async function DashboardPage() {
+const getDashboardCounts = unstable_cache(async () => {
   const connected = Boolean(await connectToDatabase());
   const counts = connected
     ? await Promise.all([ServiceModel.countDocuments(), PostModel.countDocuments(), GalleryModel.countDocuments(), AppointmentModel.countDocuments({ status: "new" })])
     : [6, 3, 3, 0];
+  return { connected, counts };
+}, ["admin-dashboard-counts"], { revalidate: 60, tags: ["admin-counts"] });
+
+export default async function DashboardPage() {
+  const { connected, counts } = await getDashboardCounts();
   const cards = [["Chương trình", counts[0], "/admin/services"], ["Bài viết", counts[1], "/admin/posts"], ["Ảnh / sự kiện", counts[2], "/admin/gallery"], ["Đăng ký mới", counts[3], "/admin/appointments"]];
   return (
     <>

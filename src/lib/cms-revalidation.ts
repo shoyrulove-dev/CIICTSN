@@ -1,4 +1,4 @@
-import { revalidatePath } from "next/cache";
+import { revalidatePath, updateTag } from "next/cache";
 import type { CollectionName } from "@/lib/admin";
 
 type CmsItem = { slug?: unknown } | null | undefined;
@@ -8,6 +8,8 @@ function slugOf(item: CmsItem) {
 }
 
 export function revalidateCmsCollection(collection: CollectionName, item?: CmsItem, previousItem?: CmsItem) {
+  updateTag(`cms-${collection}`);
+  updateTag("admin-counts");
   if (collection === "settings") {
     revalidatePath("/", "layout");
     return;
