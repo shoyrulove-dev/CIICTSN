@@ -674,6 +674,8 @@ img { max-width: 100%; }
 .admin-root h1, .admin-root h2, .admin-root h3, .admin-root h4, .admin-login h1, .admin-login h2, .admin-login h3 { font-family: var(--font-body), Arial, sans-serif !important; font-kerning: normal; }
 
 /* CIIC brand theme — public footer and administration */
+.ipf-nav details:not([open]) > div { display: none !important; }
+.ipf-nav details[open] > div { display: grid; }
 .site-footer { color: #c8d9d1; background: #003f35; border-top: 5px solid #e3b44b; }
 .site-footer .footer-grid { grid-template-columns: 1.2fr .7fr .9fr 1.3fr; }
 .site-footer .footer-brand img { width: 104px; height: 104px; padding: 4px; border: 2px solid #e3b44b; border-radius: 50%; background: #fff; object-fit: cover; }

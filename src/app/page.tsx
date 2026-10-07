@@ -3,6 +3,7 @@ import Link from "next/link";
 import { CiicRegistrationForm } from "@/components/site/ciic-registration-form";
 import { ScrollReveal } from "@/components/site/scroll-reveal";
 import { SiteFooter } from "@/components/site/footer";
+import { CiicHeader } from "@/components/site/ciic-header";
 import { getGallery, getPosts, getServices, getSettings } from "@/lib/content";
 
 export const revalidate=300;
@@ -11,8 +12,7 @@ const activities=[["Hằng ngày","Trưng bày sản phẩm, trải nghiệm sá
 export default async function HomePage(){
   const [settings,services,posts,gallery]=await Promise.all([getSettings(),getServices(),getPosts(),getGallery()]);
   return <div className="ipf-site"><ScrollReveal/>
-    <div className="ipf-top"><div className="ipf-container"><span>TRUNG TÂM ĐỔI MỚI SÁNG TẠO CÔNG NGHIỆP VĂN HÓA · TÂN SƠN NHẤT</span><span>{settings.contact.address}</span></div></div>
-    <header className="ipf-header"><div className="ipf-container ipf-header-inner"><Link className="ipf-brand" href="/"><Image src={settings.logoUrl} alt={settings.shortName} width={76} height={76}/><span><b>CIIC</b><small>TÂN SƠN NHẤT</small></span></Link><nav className="ipf-nav"><details><summary>GIỚI THIỆU</summary><div><a href="#about">Về CIIC</a><a href="#goals">Mục tiêu</a><a href="#values">Giá trị mô hình</a></div></details><details><summary>HỆ SINH THÁI</summary><div><a href="#ecosystem">Lĩnh vực hoạt động</a><a href="#spaces">Không gian CIIC</a><a href="#events">Chương trình</a></div></details><details><summary>HOẠT ĐỘNG</summary><div><a href="#activities">Lịch hoạt động</a><a href="#events">Sự kiện văn hóa</a><a href="#news">Tin tức</a></div></details><details><summary>THAM GIA</summary><div><a href="#register">Người dân</a><a href="#register">Doanh nghiệp / CLB</a><a href="#register">Đề xuất hợp tác</a></div></details></nav><a className="ipf-cta" href="#register">ĐĂNG KÝ THAM GIA</a></div></header>
+    <CiicHeader settings={settings}/>
     <main>
       <section className="ipf-hero"><Image src={settings.heroImage} alt="Không gian CIIC Tân Sơn Nhất" fill priority sizes="100vw"/><div className="ipf-hero-shade"/><div className="ipf-container ipf-hero-copy"><p>{settings.heroEyebrow}</p><h1><span className="ipf-title-line">Văn hóa là nền tảng</span><em className="ipf-title-line">Sáng tạo là động lực</em></h1><span>{settings.heroSubtitle}</span><div><a className="ipf-button gold" href="#about">KHÁM PHÁ CIIC</a><a className="ipf-button ghost" href="#register">ĐĂNG KÝ THAM GIA</a></div></div></section>
       <section className="ipf-route-bar"><div className="ipf-container">{[["01","NGƯỜI DÂN","Khám phá hoạt động & ưu đãi","#register"],["02","DOANH NGHIỆP / CLB","Đăng chương trình & kết nối B2B","#register"],["03","ĐỐI TÁC","Đồng hành & phát triển dự án","#register"],["04","LỊCH HOẠT ĐỘNG","Xem trải nghiệm sắp diễn ra","#activities"]].map(([n,t,s,h])=><a href={h} key={n}><b>{n}</b><span>{t}<small>{s}</small></span></a>)}</div></section>
