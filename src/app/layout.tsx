@@ -5,7 +5,7 @@ import { getSettings } from "@/lib/content";
 import { absoluteUrl, SITE_URL } from "@/lib/seo";
 import "./globals.css";
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 const bodyFont = Be_Vietnam_Pro({ subsets: ["latin", "vietnamese"], variable: "--font-body", weight: ["300", "400", "500", "600", "700"] });
 const displayFont = Manrope({ subsets: ["latin", "vietnamese"], variable: "--font-display", weight: ["500", "600", "700", "800"] });

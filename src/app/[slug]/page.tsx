@@ -6,7 +6,7 @@ import { absoluteUrl, buildPageMetadata, SITE_URL } from "@/lib/seo";
 
 type Props = { params: Promise<{ slug: string }> };
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export async function generateStaticParams() {
   const [services, posts] = await Promise.all([getServices(), getPosts()]);

@@ -6,7 +6,7 @@ import { SiteFooter } from "@/components/site/footer";
 import { CiicHeader } from "@/components/site/ciic-header";
 import { getGallery, getPosts, getServices, getSettings } from "@/lib/content";
 
-export const revalidate=300;
+export const revalidate=3600;
 const activities=[["Hằng ngày","Trưng bày sản phẩm, trải nghiệm sáng tạo, học tập và sinh hoạt cộng đồng."],["Hằng tuần","Acoustic Tuesday, Comedy Wednesday, Movie Night Thursday, Vibe-up Friday và Family Sunday."],["Theo mùa","Lễ hội văn hóa quốc tế, âm nhạc, ẩm thực, Trung Thu, Giáng Sinh, Tết và CIIC Birthday Bash."]];
 
 export default async function HomePage(){
