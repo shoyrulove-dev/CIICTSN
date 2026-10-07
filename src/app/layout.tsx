@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import type { CSSProperties } from "react";
-import { Be_Vietnam_Pro, Manrope } from "next/font/google";
+import { Be_Vietnam_Pro, Manrope, Noto_Serif } from "next/font/google";
 import { getSettings } from "@/lib/content";
 import { absoluteUrl, SITE_URL } from "@/lib/seo";
 import "./globals.css";
@@ -9,6 +9,7 @@ export const revalidate = 300;
 
 const bodyFont = Be_Vietnam_Pro({ subsets: ["latin", "vietnamese"], variable: "--font-body", weight: ["300", "400", "500", "600", "700"] });
 const displayFont = Manrope({ subsets: ["latin"], variable: "--font-display", weight: ["500", "600", "700", "800"] });
+const ciicSerif = Noto_Serif({ subsets: ["latin", "vietnamese"], variable: "--font-ciic-serif", weight: ["600", "700", "800"] });
 
 const fontStacks: Record<string, string> = {
   "Be Vietnam Pro": "var(--font-body), Arial, sans-serif",
@@ -119,7 +120,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   };
   return (
     <html lang="vi">
-      <body className={`${bodyFont.variable} ${displayFont.variable}`} style={themeStyle}>
+      <body className={`${bodyFont.variable} ${displayFont.variable} ${ciicSerif.variable}`} style={themeStyle}>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
         {children}
       </body>
