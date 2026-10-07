@@ -8,9 +8,9 @@ export function SiteFooter({ settings, services }: { settings: SiteSettings; ser
   const socialLinks = [
     { href: settings.contact.facebook, label: "Facebook", icon: "facebook" },
     { href: settings.contact.zalo, label: "Zalo", text: "Zalo" },
-    { href: settings.contact.tiktok, label: "TikTok Nha khoa Presmile", icon: "tiktok" },
-    { href: settings.contact.tiktokDoctor, label: "TikTok Bác sĩ Liên Presmile", icon: "tiktok" },
-    { href: settings.contact.youtube, label: "YouTube Presmile", icon: "youtube" },
+    { href: settings.contact.tiktok, label: "TikTok CIIC", icon: "tiktok" },
+    { href: settings.contact.tiktokDoctor, label: "TikTok đối tác CIIC", icon: "tiktok" },
+    { href: settings.contact.youtube, label: "YouTube CIIC", icon: "youtube" },
   ].filter((item) => item.href);
   return (
     <footer className="site-footer">
@@ -25,10 +25,10 @@ export function SiteFooter({ settings, services }: { settings: SiteSettings; ser
           </div>
         </div>
         <div className="footer-links" aria-label="Khám phá website">
-          <Link href="/gioi-thieu">Về Presmile</Link>
-          <Link href="/dich-vu">Dịch vụ nha khoa</Link>
-          <Link href="/kien-thuc">Kiến thức</Link>
-          <Link href="/lien-he">Liên hệ</Link>
+          <Link href="/#about">Giới thiệu</Link>
+          <Link href="/#ecosystem">Chương trình</Link>
+          <Link href="/#news">Tin tức</Link>
+          <Link href="/#register">Liên hệ</Link>
         </div>
         <div className="footer-links" aria-label="Dịch vụ nổi bật">
           {services.slice(0, 5).map((service) => <Link href={`/${service.slug}`} key={service.slug}>{service.title}</Link>)}
@@ -38,7 +38,7 @@ export function SiteFooter({ settings, services }: { settings: SiteSettings; ser
           <a href={`tel:${settings.contact.phone.replace(/\s/g, "")}`}><Icon name="phone" />{settings.contact.phone}</a>
           <a href={`mailto:${settings.contact.email}`}><Icon name="mail" />{settings.contact.email}</a>
           <span><Icon name="clock" />{settings.contact.hours}</span>
-          <iframe title="Bản đồ Nha khoa Presmile" src={mapEmbedUrl} loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
+          <iframe title="Bản đồ CIIC Tân Sơn Nhất" src={mapEmbedUrl} loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
         </div>
       </div>
       <div className="footer-bottom"><div className="shell">© {new Date().getFullYear()} {settings.shortName}. Tất cả quyền được bảo lưu.</div></div>

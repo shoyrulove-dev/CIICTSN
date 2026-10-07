@@ -9,7 +9,7 @@ export async function POST(request: Request) {
   const name = String(data.name || "").trim();
   const phone = String(data.phone || "").trim();
   if (name.length < 2 || phone.replace(/\D/g, "").length < 9) return NextResponse.json({message:"Vui lòng nhập họ tên và số điện thoại hợp lệ."},{status:400});
-  if (!(await connectToDatabase())) return NextResponse.json({message:"Form đang chờ kết nối MongoDB. Vui lòng gọi trực tiếp 079 8888 558."},{status:503});
+  if (!(await connectToDatabase())) return NextResponse.json({message:"Hiện chưa thể nhận thông tin trực tuyến. Bạn vui lòng gọi 079 8888 558 để được hỗ trợ."},{status:503});
   const email=String(data.email||"").trim();
   const service=String(data.service||"Đăng ký tham gia CIIC");
   const message=String(data.message||"").trim();

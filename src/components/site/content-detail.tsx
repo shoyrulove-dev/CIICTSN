@@ -12,7 +12,7 @@ type ArticleSection = {
   paragraphs: string[];
 };
 
-const fallbackHeadings = ["Tổng quan", "Thông tin cần biết", "Chăm sóc và theo dõi", "Khuyến nghị từ Presmile"];
+const fallbackHeadings = ["Tổng quan", "Điểm nổi bật", "Thông tin tham gia", "Gợi ý từ CIIC"];
 
 export function buildArticleSections(content: string): ArticleSection[] {
   const blocks = content.split(/\n{2,}/).map((block) => block.trim()).filter(Boolean);
@@ -56,11 +56,11 @@ export function ServiceDetail({ service }: { service: Service }) {
     <PageShell>
       <section className="page-content"><div className="shell detail-grid">
         <div className="detail-copy">
-          <span className="booking-eyebrow">Dịch vụ Presmile</span>
+          <span className="booking-eyebrow">Chương trình CIIC</span>
           <h1>{service.title}</h1>
           <p>{service.excerpt}</p>
-          <div className="prose"><p>{service.description}</p><p>Quy trình cụ thể và thời gian điều trị được bác sĩ tư vấn sau khi thăm khám trực tiếp và đánh giá dữ liệu cần thiết.</p></div>
-          <div className="detail-cta"><h3>Bạn cần tư vấn dịch vụ này?</h3><p>Đội ngũ Presmile sẽ hỗ trợ giải đáp và sắp xếp lịch phù hợp.</p><Link className="button button-primary" href={`/lien-he?service=${encodeURIComponent(service.title)}#dat-lich`}>Đặt lịch ngay</Link></div>
+          <div className="prose"><p>{service.description}</p><p>Lịch tổ chức và cách tham gia sẽ được CIIC cập nhật theo từng chương trình.</p></div>
+          <div className="detail-cta"><h3>Bạn muốn tìm hiểu chương trình này?</h3><p>Hãy để lại lời nhắn, CIIC sẽ liên hệ và chia sẻ thông tin phù hợp.</p><Link className="button button-primary" href="/#register">Đăng ký tìm hiểu</Link></div>
         </div>
         <div className="detail-image"><Image src={service.image} alt={service.title} fill sizes="(max-width: 760px) 100vw, 42vw" /></div>
       </div></section>
@@ -78,7 +78,7 @@ export function PostDetail({ post, previousPost, nextPost }: { post: Post; previ
           <nav>{sections.map((section) => <a className={section.level === 3 ? "is-sub" : ""} href={`#${section.id}`} key={section.id}>{section.title}</a>)}</nav>
         </aside>
         <div className="detail-copy article-body">
-          <span className="booking-eyebrow">Kiến thức nha khoa</span>
+          <span className="booking-eyebrow">Câu chuyện CIIC</span>
           <h1>{post.title}</h1>
           <p>{post.excerpt}</p>
           <div className="article-cover"><Image src={post.image} alt={post.title} fill priority sizes="(max-width: 760px) 100vw, 760px" /></div>
@@ -88,14 +88,14 @@ export function PostDetail({ post, previousPost, nextPost }: { post: Post; previ
               {section.paragraphs.map((paragraph, index) => <p key={`${section.id}-${index}`}>{paragraph}</p>)}
             </section>)}
             {post.videoEmbedUrl ? <VideoEmbed item={{ title: post.title, description: "Video minh họa cho nội dung bài viết.", embedUrl: post.videoEmbedUrl, placement: "knowledge", order: 0, published: true }} /> : null}
-            <p className="medical-note">Nội dung mang tính tham khảo và không thay thế chẩn đoán trực tiếp. Nếu có đau, sưng hoặc dấu hiệu bất thường, bạn nên đặt lịch thăm khám với bác sĩ.</p>
+            <p className="medical-note">Thông tin về thời gian, địa điểm và cách tham gia có thể được cập nhật theo kế hoạch tổ chức thực tế.</p>
             {post.sourceUrl ? <p className="article-source">Nguồn tham khảo: <a href={post.sourceUrl} target="_blank" rel="noreferrer">{post.sourceLabel || post.sourceUrl}</a></p> : null}
           </div>
           <nav className="post-navigation" aria-label="Điều hướng bài viết">
             {previousPost ? <Link href={`/${previousPost.slug}`}><small>← Bài trước</small><strong>{previousPost.title}</strong></Link> : <span />}
             {nextPost ? <Link href={`/${nextPost.slug}`}><small>Bài tiếp theo →</small><strong>{nextPost.title}</strong></Link> : <span />}
           </nav>
-          <Link className="back-to-knowledge" href="/kien-thuc">← Quay lại danh sách kiến thức</Link>
+          <Link className="back-to-knowledge" href="/#news">← Quay lại tin tức CIIC</Link>
         </div>
       </article></section>
     </PageShell>

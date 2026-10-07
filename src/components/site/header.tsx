@@ -5,10 +5,10 @@ import type { SiteSettings } from "@/types/cms";
 
 const links = [
   ["Trang chủ", "/"],
-  ["Về Presmile", "/gioi-thieu"],
-  ["Dịch vụ", "/dich-vu"],
-  ["Kiến thức", "/kien-thuc"],
-  ["Liên hệ", "/lien-he"],
+  ["Giới thiệu", "/#about"],
+  ["Chương trình", "/#ecosystem"],
+  ["Tin tức", "/#news"],
+  ["Liên hệ", "/#register"],
 ];
 
 export function SiteHeader({ settings }: { settings: SiteSettings }) {
@@ -31,7 +31,7 @@ export function SiteHeader({ settings }: { settings: SiteSettings }) {
           <nav className="desktop-nav" aria-label="Điều hướng chính">
             {links.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}
           </nav>
-          <Link className="button button-primary header-cta" href="/lien-he#dat-lich">Đặt lịch khám</Link>
+          <Link className="button button-primary header-cta" href="/#register">Đăng ký tham gia</Link>
           <details className="mobile-menu">
             <summary aria-label="Mở menu"><Icon name="menu" /></summary>
             <nav>{links.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}</nav>

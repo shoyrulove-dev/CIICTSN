@@ -36,7 +36,7 @@ export default async function RootContentPage({ params }: Props) {
     const structuredData = {
       "@context": "https://schema.org", "@type": "Service", name: service.title,
       description: service.excerpt, image: absoluteUrl(service.image), url: `${SITE_URL}/${service.slug}`,
-      provider: { "@id": `${SITE_URL}/#dental-clinic` }, areaServed: "TP. Hồ Chí Minh",
+      provider: { "@id": `${SITE_URL}/#organization` }, areaServed: "TP. Hồ Chí Minh",
     };
     return <><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} /><ServiceDetail service={service} /></>;
   }
@@ -48,8 +48,8 @@ export default async function RootContentPage({ params }: Props) {
     description: post.metaDescription || post.excerpt, image: [absoluteUrl(post.image)],
     datePublished: post.publishedAt, dateModified: post.publishedAt, inLanguage: "vi-VN",
     mainEntityOfPage: `${SITE_URL}/${post.slug}`,
-    author: { "@type": "Organization", name: "Presmile Dental Center", url: SITE_URL },
-    publisher: { "@id": `${SITE_URL}/#dental-clinic` },
+    author: { "@type": "Organization", name: "CIIC Tân Sơn Nhất", url: SITE_URL },
+    publisher: { "@id": `${SITE_URL}/#organization` },
   };
   return <><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} /><PostDetail post={post} previousPost={posts[index - 1]} nextPost={posts[index + 1]} /></>;
 }

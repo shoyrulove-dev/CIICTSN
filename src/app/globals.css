@@ -670,6 +670,8 @@ img { max-width: 100%; }
 }
 
 /* CIIC responsive media system */
+.admin-root, .admin-login { font-family: var(--font-body), Arial, sans-serif; }
+.admin-root h1, .admin-root h2, .admin-root h3, .admin-root h4, .admin-login h1, .admin-login h2, .admin-login h3 { font-family: var(--font-body), Arial, sans-serif !important; font-kerning: normal; }
 .ipf-site { overflow-x: clip; }
 .ipf-gallery-mosaic { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: none; gap: 16px; }
 .ipf-gallery-mosaic figure, .ipf-gallery-mosaic .tile-1 { grid-row: auto; height: auto; aspect-ratio: 16 / 9; min-width: 0; }

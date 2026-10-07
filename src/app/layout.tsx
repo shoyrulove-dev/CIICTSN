@@ -8,7 +8,7 @@ import "./globals.css";
 export const revalidate = 300;
 
 const bodyFont = Be_Vietnam_Pro({ subsets: ["latin", "vietnamese"], variable: "--font-body", weight: ["300", "400", "500", "600", "700"] });
-const displayFont = Manrope({ subsets: ["latin"], variable: "--font-display", weight: ["500", "600", "700", "800"] });
+const displayFont = Manrope({ subsets: ["latin", "vietnamese"], variable: "--font-display", weight: ["500", "600", "700", "800"] });
 const ciicSerif = Noto_Serif({ subsets: ["latin", "vietnamese"], variable: "--font-ciic-serif", weight: ["600", "700", "800"] });
 
 const fontStacks: Record<string, string> = {

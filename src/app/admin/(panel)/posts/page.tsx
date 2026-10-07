@@ -14,5 +14,5 @@ const fields: AdminField[] = [
 
 export default async function AdminPostsPage() {
   const items = await getPosts(true);
-  return <><div className="admin-page-heading"><div><span>Nội dung</span><h1>Bài viết</h1><p>Chia sẻ kiến thức và thông tin hữu ích cho khách hàng.</p></div></div><AdminManager collection="posts" fields={fields} initialItems={items as unknown as Record<string, unknown>[]} /></>;
+  return <><div className="admin-page-heading"><div><span>Tin tức CIIC</span><h1>Bài viết</h1><p>Chia sẻ hoạt động, câu chuyện và thông tin hữu ích đến cộng đồng.</p></div></div><AdminManager collection="posts" fields={fields} initialItems={items as unknown as Record<string, unknown>[]} /></>;
 }

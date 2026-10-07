@@ -43,7 +43,7 @@ function ImageUploadField({
       return;
     }
     if (file.size === 0) {
-      setError("File upload đang trống.");
+      setError("Tệp ảnh đang trống.");
       return;
     }
     if (file.size > 25 * 1024 * 1024) {
@@ -54,7 +54,7 @@ function ImageUploadField({
     try {
       const authResponse = await fetch("/api/admin/upload", { cache: "no-store" });
       const auth = await authResponse.json();
-      if (!authResponse.ok) throw new Error(auth.message || "Không thể xác thực upload.");
+      if (!authResponse.ok) throw new Error(auth.message || "Chưa thể tải ảnh lúc này.");
 
       const body = new FormData();
       body.set("file", file);
@@ -74,8 +74,8 @@ function ImageUploadField({
         request.upload.onprogress = (event) => {
           if (event.lengthComputable) setProgress(Math.round((event.loaded / event.total) * 100));
         };
-        request.onerror = () => reject(new Error("Mất kết nối khi upload ảnh."));
-        request.ontimeout = () => reject(new Error("Upload quá thời gian chờ. Vui lòng thử lại."));
+        request.onerror = () => reject(new Error("Mất kết nối khi tải ảnh."));
+        request.ontimeout = () => reject(new Error("Thời gian tải ảnh quá lâu. Vui lòng thử lại."));
         request.onload = () => {
           let payload: Record<string, unknown> = {};
           try {
@@ -85,7 +85,7 @@ function ImageUploadField({
             return;
           }
           if (request.status < 200 || request.status >= 300) {
-            reject(new Error(String(payload.message || "Upload thất bại.")));
+            reject(new Error(String(payload.message || "Chưa tải được ảnh.")));
             return;
           }
           resolve(payload);
@@ -96,7 +96,7 @@ function ImageUploadField({
       onChange(String(result.url));
       setProgress(100);
     } catch (uploadError) {
-      setError(uploadError instanceof Error ? uploadError.message : "Upload thất bại.");
+      setError(uploadError instanceof Error ? uploadError.message : "Chưa tải được ảnh.");
     } finally {
       setUploading(false);
     }
@@ -106,17 +106,17 @@ function ImageUploadField({
     <div className="admin-image-control">
       {value ? <div className="admin-image-preview"><Image src={value} alt="" fill sizes="280px" unoptimized /></div> : null}
       <div className="admin-image-input-row">
-        <input type="url" value={value} disabled={disabled} onChange={(event) => onChange(event.target.value)} placeholder="https://... hoặc upload ảnh" />
+        <input type="url" value={value} disabled={disabled} onChange={(event) => onChange(event.target.value)} placeholder="Dán liên kết hoặc tải ảnh mới" />
         {!disabled ? (
-          <label className="admin-upload-button" title="Upload ảnh lên ImageKit">
+          <label className="admin-upload-button" title="Tải ảnh mới lên kho ảnh">
             <Icon name="upload" />
-            <span>{uploading ? `Đang tải ${progress}%` : "Upload"}</span>
+            <span>{uploading ? `Đang tải ${progress}%` : "Tải ảnh"}</span>
             <input type="file" accept="image/jpeg,image/png,image/webp,image/gif,image/svg+xml" disabled={uploading} onChange={(event) => { void upload(event.target.files?.[0]); event.target.value = ""; }} />
           </label>
         ) : null}
       </div>
       <small className="admin-field-hint">{hint || "Đề xuất: ảnh JPG/WebP, tối thiểu 1200px, dung lượng dưới 5MB."}</small>
-      {progress === 100 && !uploading && !error ? <small className="admin-field-success">Upload xong. Nhấn “Lưu thay đổi” để áp dụng ảnh lên website.</small> : null}
+      {progress === 100 && !uploading && !error ? <small className="admin-field-success">Ảnh đã tải xong. Nhấn “Lưu thay đổi” để đưa ảnh lên website.</small> : null}
       {error ? <small className="admin-field-error">{error}</small> : null}
     </div>
   );
@@ -273,7 +273,7 @@ export function AdminManager({
   return (
     <div className="admin-manager">
       <div className="admin-toolbar">
-        <span>{items.length} mục dữ liệu</span>
+        <span>{items.length} nội dung</span>
         {!singleton && !readOnly ? <button type="button" className="admin-primary" onClick={() => { setMessage(""); setEditing({ ...empty }); }}><Icon name="plus" />Thêm mới</button> : null}
       </div>
       {message ? <div className="admin-message">{message}</div> : null}
@@ -293,11 +293,11 @@ export function AdminManager({
       {editing ? (
         <div className={singleton ? "admin-editor inline" : "admin-modal-backdrop"}>
           <section className={singleton ? "" : "admin-editor"}>
-            <div className="admin-editor-head"><div><b>{readOnly ? "Chi tiết" : editing._id ? "Chỉnh sửa" : "Thêm mới"}</b><span>{collection}</span></div>{!singleton ? <button type="button" title="Đóng" aria-label="Đóng" onClick={() => setEditing(null)}><Icon name="close" /></button> : null}</div>
+            <div className="admin-editor-head"><div><b>{readOnly ? "Chi tiết" : editing._id ? "Chỉnh sửa" : "Thêm mới"}</b><span>Nội dung CIIC</span></div>{!singleton ? <button type="button" title="Đóng" aria-label="Đóng" onClick={() => setEditing(null)}><Icon name="close" /></button> : null}</div>
             <div className={fieldGroups.some((group) => group.name) ? "admin-form-sections" : ""}>
               {fieldGroups.map((group) => group.name ? (
                 <details className="admin-form-section" key={group.name}>
-                  <summary><span>{group.name}</span><small>{group.fields.length} trường</small></summary>
+                  <summary><span>{group.name}</span><small>{group.fields.length} mục</small></summary>
                   <div className="admin-form-grid">{group.fields.map(renderField)}</div>
                   {!readOnly ? <div className="admin-section-actions">
                     {groupStatus(group.name)}
