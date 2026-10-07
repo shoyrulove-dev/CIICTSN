@@ -53,8 +53,8 @@ export async function generateMetadata(): Promise<Metadata> {
       title: settings.seoTitle,
       description: settings.seoDescription,
       url: SITE_URL,
-      siteName: "Presmile Dental Center",
-      images: [{ url: absoluteUrl(settings.ogImage), width: 1200, height: 630, alt: "Presmile Dental Center" }],
+      siteName: "CIIC Tân Sơn Nhất",
+      images: [{ url: absoluteUrl(settings.ogImage), width: 1200, height: 630, alt: "CIIC Tân Sơn Nhất" }],
       locale: "vi_VN",
       type: "website",
     },
@@ -84,8 +84,8 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": ["Dentist", "LocalBusiness"],
-        "@id": `${SITE_URL}/#dental-clinic`,
+        "@type": ["Organization", "CivicStructure"],
+        "@id": `${SITE_URL}/#organization`,
         name: settings.siteName,
         alternateName: settings.shortName,
         url: SITE_URL,
@@ -100,8 +100,6 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
           addressLocality: "TP. Hồ Chí Minh",
           addressCountry: "VN",
         },
-        openingHours: "Mo-Sa 09:00-19:00",
-        priceRange: "$$",
         sameAs: [
           settings.contact.facebook,
           settings.contact.tiktok,
@@ -115,7 +113,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
         url: SITE_URL,
         name: settings.siteName,
         inLanguage: "vi-VN",
-        publisher: { "@id": `${SITE_URL}/#dental-clinic` },
+        publisher: { "@id": `${SITE_URL}/#organization` },
       },
     ],
   };
