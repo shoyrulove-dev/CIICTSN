@@ -8,7 +8,7 @@ export type AdminField = {
   name: string;
   label: string;
   type?: "text" | "textarea" | "url" | "image" | "number" | "date" | "checkbox" | "select" | "color";
-  options?: string[];
+  options?: Array<string | { value: string; label: string }>;
   placeholder?: string;
   hint?: string;
   section?: string;
@@ -263,7 +263,7 @@ export function AdminManager({
     return <label className={field.type === "textarea" ? "full" : ""} key={field.name}><span>{field.label}</span>
       {field.type === "textarea" ? <textarea rows={5} value={String(value || "")} disabled={readOnly} onChange={(e) => change(field.name, e.target.value)} placeholder={field.placeholder} /> :
         field.type === "image" ? <ImageUploadField value={String(value || "")} folder={collection} disabled={readOnly} hint={field.hint} onChange={(nextValue) => change(field.name, nextValue)} /> :
-        field.type === "select" ? <select value={String(value || "")} disabled={readOnly} onChange={(e) => change(field.name, e.target.value)}>{field.options?.map((option) => <option key={option}>{option}</option>)}</select> :
+        field.type === "select" ? <select value={String(value || "")} disabled={readOnly} onChange={(e) => change(field.name, e.target.value)}>{field.options?.map((option) => {const item=typeof option==="string"?{value:option,label:option}:option;return <option value={item.value} key={item.value}>{item.label}</option>})}</select> :
         field.type === "checkbox" ? <input className="admin-checkbox" type="checkbox" checked={Boolean(value)} disabled={readOnly} onChange={(e) => change(field.name, e.target.checked)} /> :
         <input type={field.type || "text"} value={String(value ?? "")} disabled={readOnly} onChange={(e) => change(field.name, field.type === "number" ? Number(e.target.value) : e.target.value)} placeholder={field.placeholder} />}
       {field.hint && field.type !== "image" ? <small className="admin-field-hint">{field.hint}</small> : null}

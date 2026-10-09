@@ -5,6 +5,7 @@ import { revalidateCmsCollection } from "@/lib/cms-revalidation";
 import { connectToDatabase } from "@/lib/db";
 import { slugify } from "@/lib/slug";
 import { validateContentSlug } from "@/lib/content-slug";
+import {AuditLogModel,BookingModel,RegistrationModel,ScheduleModel} from "@/models/cms";
 
 type Context = { params: Promise<{ collection: string }> };
 
@@ -46,7 +47,10 @@ export async function POST(request: Request, context: Context) {
     revalidateCmsCollection(collection as CollectionName, item);
     return NextResponse.json({ item: JSON.parse(JSON.stringify(item)), message: "Đã cập nhật website." });
   }
+  if(collection==="bookings"&&payload.resourceId&&payload.startAt&&payload.endAt){const conflict=await BookingModel.exists({resourceId:payload.resourceId,status:{$in:["pending","confirmed"]},startAt:{$lt:String(payload.endAt)},endAt:{$gt:String(payload.startAt)}});if(conflict)return NextResponse.json({message:"Khung giờ này đã có yêu cầu đặt chỗ."},{status:409});payload.code=`BK-${Date.now().toString(36).toUpperCase()}`;}
+  if(collection==="registrations"&&payload.scheduleId){const schedule=await ScheduleModel.findById(payload.scheduleId).lean();if(schedule?.capacity){const used=await RegistrationModel.aggregate([{$match:{scheduleId:String(payload.scheduleId),status:{$in:["pending","confirmed"]}}},{$group:{_id:null,total:{$sum:"$participants"}}}]);if((used[0]?.total||0)+Number(payload.participants||1)>schedule.capacity)payload.status="waitlist";}payload.code=`RG-${Date.now().toString(36).toUpperCase()}`;}
   const item = await Model.create(payload);
+  await AuditLogModel.create({actor:"admin",role:"super_admin",action:"create",collectionName:collection,itemId:String(item._id),summary:`Tạo mới ${collection}`});
   revalidateCmsCollection(collection as CollectionName, item);
   return NextResponse.json({ item: JSON.parse(JSON.stringify(item)), message: "Đã thêm mới." });
 }

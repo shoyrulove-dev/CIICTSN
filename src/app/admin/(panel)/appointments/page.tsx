@@ -6,7 +6,7 @@ const fields: AdminField[] = [
   { name: "name", label: "Khách hàng" }, { name: "phone", label: "Số điện thoại" },
   { name: "email", label: "Email" }, { name: "service", label: "Vai trò / nội dung quan tâm" },
   { name: "preferredDate", label: "Ngày mong muốn", type: "date" }, { name: "message", label: "Lời nhắn", type: "textarea" },
-  { name: "status", label: "Tình trạng liên hệ", type: "select", options: ["Mới nhận", "Đã liên hệ", "Đã hoàn tất", "Đã hủy"] },
+  { name: "status", label: "Tình trạng liên hệ", type: "select", options: [{value:"new",label:"Mới nhận"},{value:"confirmed",label:"Đã liên hệ"},{value:"completed",label:"Đã hoàn tất"},{value:"cancelled",label:"Đã hủy"}] },
 ];
 
 export default async function AdminAppointmentsPage() {

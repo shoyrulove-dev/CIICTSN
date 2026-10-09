@@ -4,13 +4,14 @@ import { FormEvent, useState } from "react";
 
 export function CiicRegistrationForm() {
   const [state, setState] = useState<"idle"|"sending"|"done"|"error">("idle");
+  const [startedAt] = useState(()=>Date.now());
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault(); setState("sending");
     const form = new FormData(event.currentTarget);
     const response = await fetch("/api/appointments", { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(Object.fromEntries(form)) });
     if (response.ok) { setState("done"); event.currentTarget.reset(); } else setState("error");
   }
-  return <form className="ipf-form" onSubmit={submit}>
+  return <form className="ipf-form" onSubmit={submit}><input type="hidden" name="startedAt" value={startedAt}/><div className="form-honeypot" aria-hidden="true"><label>Công ty<input name="company" tabIndex={-1} autoComplete="off"/></label></div>
     <div><label>Họ và tên *</label><input name="name" required placeholder="Nguyễn Văn A"/></div>
     <div><label>Số điện thoại *</label><input name="phone" required placeholder="09xx xxx xxx"/></div>
     <div><label>Email</label><input name="email" type="email" placeholder="email@domain.com"/></div>

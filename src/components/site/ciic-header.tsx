@@ -5,16 +5,20 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import type { SiteSettings } from "@/types/cms";
 
-const groups = [
+const defaultGroups = [
   { label: "GIỚI THIỆU", links: [["Về CIIC", "/#about"], ["Mục tiêu", "/#goals"], ["Giá trị mô hình", "/#values"]] },
   { label: "HỆ SINH THÁI", links: [["Văn hóa — nghệ thuật", "/kham-pha/khong-gian-van-hoa-nghe-thuat"], ["Học tập & sáng tạo", "/kham-pha/cong-dong-hoc-tap-sang-tao"], ["Triển lãm — giao thương", "/kham-pha/trien-lam-hoi-cho-giao-thuong"], ["Công nghệ & nội dung số", "/kham-pha/cong-nghe-noi-dung-so"], ["Thể dục thể thao", "/kham-pha/the-duc-the-thao"]] },
-  { label: "HOẠT ĐỘNG", links: [["Lịch hoạt động", "/kham-pha/lich-hoat-dong"], ["Địa điểm & bản đồ", "/kham-pha/dia-diem-ban-do"], ["Tin tức & câu chuyện", "/kham-pha/tin-tuc-cau-chuyen"]] },
-  { label: "THAM GIA", links: [["Booking / Đăng ký", "/kham-pha/booking-dang-ky"], ["Tài khoản / Thành viên", "/kham-pha/tai-khoan-thanh-vien"], ["Đề xuất hợp tác", "/#register"]] },
+  { label: "HOẠT ĐỘNG", links: [["Tìm hoạt động", "/hoat-dong"], ["Lịch hoạt động", "/kham-pha/lich-hoat-dong"], ["Địa điểm & bản đồ", "/kham-pha/dia-diem-ban-do"], ["Tin tức & câu chuyện", "/kham-pha/tin-tuc-cau-chuyen"]] },
+  { label: "THAM GIA", links: [["Booking / Đăng ký", "/booking"], ["Tài khoản / Thành viên", "/kham-pha/tai-khoan-thanh-vien"], ["Đề xuất hợp tác", "/#register"]] },
 ];
 
 export function CiicHeader({ settings }: { settings: SiteSettings }) {
+  const [groups,setGroups]=useState(defaultGroups);
   const [openMenu, setOpenMenu] = useState<number | null>(null);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
+
+  useEffect(()=>{fetch("/api/roadmap-menu").then(response=>response.ok?response.json():null).then(data=>{if(!data?.items?.length)return;const items=data.items as Array<{slug:string;title:string;number:string}>;const links=(numbers:string[])=>items.filter(item=>numbers.includes(item.number)).map(item=>[item.title,`/kham-pha/${item.slug}`]);const known=new Set(["01","02","03","04","05","06","07","08","09","10"]);const extras=items.filter(item=>!known.has(item.number)).map(item=>[item.title,`/kham-pha/${item.slug}`]);setGroups([defaultGroups[0],{label:"HỆ SINH THÁI",links:[...links(["01","02","03","04","05"]),...extras]},{label:"HOẠT ĐỘNG",links:[["Tìm hoạt động","/hoat-dong"],...links(["06","08","09"])]},{label:"THAM GIA",links:[["Booking / Đăng ký","/booking"],...links(["10"]),["Đề xuất hợp tác","/#register"]]}])}).catch(()=>{})},[]);
 
   useEffect(() => {
     if (openMenu === null) return;
@@ -42,12 +46,13 @@ export function CiicHeader({ settings }: { settings: SiteSettings }) {
     <header className="ipf-header" ref={headerRef}>
       <div className="ipf-container ipf-header-inner">
         <Link className="ipf-brand" href="/" onClick={() => setOpenMenu(null)}><Image src={settings.logoUrl} alt={settings.shortName} width={76} height={76}/><span><b>CIIC</b><small>TÂN SƠN NHẤT</small></span></Link>
-        <nav className="ipf-nav" aria-label="Điều hướng chính">
+        <button className="ipf-mobile-toggle" type="button" aria-label={mobileOpen?"Đóng menu":"Mở menu"} aria-expanded={mobileOpen} onClick={()=>setMobileOpen(value=>!value)}><span/><span/><span/></button>
+        <nav className={`ipf-nav${mobileOpen?" mobile-open":""}`} aria-label="Điều hướng chính">
           {groups.map((group, index) => <details open={openMenu === index} key={group.label} onToggle={(event) => {
             if (event.currentTarget.open) setOpenMenu(index);
           }}>
             <summary onClick={(event) => { event.preventDefault(); setOpenMenu((current) => current === index ? null : index); }}>{group.label}</summary>
-            <div>{group.links.map(([label, href]) => <a href={href} key={`${label}-${href}`} onClick={() => setOpenMenu(null)}>{label}</a>)}</div>
+            <div>{group.links.map(([label, href]) => <a href={href} key={`${label}-${href}`} onClick={() => {setOpenMenu(null);setMobileOpen(false)}}>{label}</a>)}</div>
           </details>)}
         </nav>
         <Link className="ipf-cta" href="/#register" onClick={() => setOpenMenu(null)}>ĐĂNG KÝ THAM GIA</Link>

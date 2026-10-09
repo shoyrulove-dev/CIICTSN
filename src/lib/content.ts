@@ -4,7 +4,7 @@ import { connectToDatabase } from "@/lib/db";
 import { defaultDoctors, defaultGallery, defaultPosts, defaultServices, defaultSettings, defaultVideos } from "@/lib/defaults";
 import { DoctorModel, GalleryModel, PostModel, ServiceModel, SettingsModel, VideoModel } from "@/models/cms";
 import type { Doctor, GalleryItem, Post, Service, SiteSettings, VideoItem } from "@/types/cms";
-import { roadmapModules, type RoadmapModule } from "@/lib/roadmap";
+import { roadmapBySlug, roadmapModules, type RoadmapModule } from "@/lib/roadmap";
 import { RoadmapModel } from "@/models/cms";
 
 function serialize<T>(value: unknown): T {
@@ -80,13 +80,15 @@ export const getVideos = cache((all = false) => all ? loadAllVideos() : loadPubl
 type StoredRoadmap=Omit<RoadmapModule,"groups">&{_id?:string;groupsJson?:string;order?:number;published?:boolean};
 async function loadRoadmap(all:boolean):Promise<(RoadmapModule&{_id?:string;groupsJson?:string;order?:number;published?:boolean})[]>{
   if(!(await connectToDatabase()))return roadmapModules;
-  const stored=serialize<StoredRoadmap[]>(await RoadmapModel.find(all?{}:{published:true}).sort({order:1}).lean());
+  const stored=serialize<StoredRoadmap[]>(await RoadmapModel.find({}).sort({order:1}).lean());
   const bySlug=new Map(stored.map(item=>[item.slug,item]));
-  return roadmapModules.map((fallback,index)=>{
+  const merged=roadmapModules.map((fallback,index)=>{
     const saved=bySlug.get(fallback.slug);if(!saved)return {...fallback,groupsJson:JSON.stringify(fallback.groups,null,2),order:index+1,published:true};
     let groups=fallback.groups;try{if(saved.groupsJson)groups=JSON.parse(saved.groupsJson)}catch{}
     return {...fallback,...saved,groups};
-  }).filter(item=>all||item.published!==false);
+  });
+  const extra=stored.filter(item=>!roadmapBySlug[item.slug]).map(item=>{let groups:RoadmapModule["groups"]=[];try{if(item.groupsJson)groups=JSON.parse(item.groupsJson)}catch{}return {...item,number:item.number||"",eyebrow:item.eyebrow||"",summary:item.summary||"",image:item.image||"/images/ciic/demo/khong-gian-van-hoa.webp",groups} as RoadmapModule&StoredRoadmap});
+  return [...merged,...extra].filter(item=>all||item.published!==false).sort((a,b)=>(a.order||999)-(b.order||999));
 }
 const loadPublicRoadmap=unstable_cache(()=>loadRoadmap(false),["ciic-roadmap-published"],{revalidate:300,tags:["cms-roadmap"]});
 const loadAllRoadmap=unstable_cache(()=>loadRoadmap(true),["ciic-roadmap-all"],{revalidate:300,tags:["cms-roadmap"]});
