@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useState, type ReactNode } from "react";
 import { Icon } from "@/components/icons";
 
-const nav=[["Tổng quan","/admin","shield"],["Chương trình","/admin/services","sparkle"],["Bài viết","/admin/posts","align"],["Kho ảnh","/admin/gallery","family"],["Đối tác / hồ sơ","/admin/doctors","shield"],["Video","/admin/videos","sparkle"],["Đăng ký","/admin/appointments","calendar"],["Cấu hình","/admin/settings","align"],["Tích hợp","/admin/integrations","sparkle"]];
+const nav=[["Tổng quan","/admin","shield"],["10 nhóm nội dung","/admin/roadmap","align"],["Chương trình","/admin/services","sparkle"],["Bài viết","/admin/posts","align"],["Kho ảnh","/admin/gallery","family"],["Đối tác / hồ sơ","/admin/doctors","shield"],["Video","/admin/videos","sparkle"],["Đăng ký","/admin/appointments","calendar"],["Cấu hình","/admin/settings","align"],["Tích hợp","/admin/integrations","sparkle"]];
 
 export function AdminShell({children}:{children:ReactNode}){
   const pathname=usePathname();const [pending,setPending]=useState("");

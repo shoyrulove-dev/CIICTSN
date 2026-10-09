@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { PostDetail, ServiceDetail } from "@/components/site/content-detail";
 import { getPosts, getServices } from "@/lib/content";
 import { absoluteUrl, buildPageMetadata, SITE_URL } from "@/lib/seo";
+import { roadmapBySlug } from "@/lib/roadmap";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -30,6 +31,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function RootContentPage({ params }: Props) {
   const { slug } = await params;
+  if (roadmapBySlug[slug]) permanentRedirect(`/kham-pha/${slug}`);
   const [services, posts] = await Promise.all([getServices(), getPosts()]);
   const service = services.find((item) => item.slug === slug);
   if (service) {

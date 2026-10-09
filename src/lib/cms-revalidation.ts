@@ -59,4 +59,10 @@ export function revalidateCmsCollection(collection: CollectionName, item?: CmsIt
     revalidatePath("/admin");
     revalidatePath("/admin/appointments");
   }
+  if (collection === "roadmap") {
+    revalidatePath("/");
+    revalidatePath("/kham-pha/[slug]", "page");
+    revalidatePath("/sitemap.xml");
+    revalidatePath("/admin/roadmap");
+  }
 }

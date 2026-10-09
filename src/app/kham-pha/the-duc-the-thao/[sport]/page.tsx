@@ -1,0 +1,12 @@
+import type {Metadata} from "next";
+import Image from "next/image";
+import Link from "next/link";
+import {notFound} from "next/navigation";
+import {CiicHeader} from "@/components/site/ciic-header";
+import {SiteFooter} from "@/components/site/footer";
+import {getServices,getSettings} from "@/lib/content";
+import {sportsSlugs} from "@/lib/roadmap";
+export const revalidate=3600;
+export function generateStaticParams(){return Object.keys(sportsSlugs).map(sport=>({sport}));}
+export async function generateMetadata({params}:{params:Promise<{sport:string}>}):Promise<Metadata>{const {sport}=await params;const name=sportsSlugs[sport as keyof typeof sportsSlugs];return name?{title:`${name} tại CIIC Tân Sơn Nhất`,description:`Thông tin demo về ${name}, lịch tập, địa điểm và đăng ký tại CIIC.`}:{};}
+export default async function SportPage({params}:{params:Promise<{sport:string}>}){const {sport}=await params;const name=sportsSlugs[sport as keyof typeof sportsSlugs];if(!name)notFound();const [settings,services]=await Promise.all([getSettings(),getServices()]);return <div className="ipf-site roadmap-site"><CiicHeader settings={settings}/><main><section className="sport-detail"><div className="ipf-container"><div className="sport-detail-copy"><p className="ipf-kicker">MÔN THỂ THAO</p><h1>{name}</h1><p>Trang demo đang chờ lịch hoạt động, huấn luyện viên, địa điểm và mức phí chính thức. Bạn có thể đăng ký quan tâm để CIIC liên hệ khi chương trình mở.</p><div className="sport-facts"><div><small>Đối tượng</small><b>Mọi lứa tuổi</b></div><div><small>Trình độ</small><b>Cơ bản — nâng cao</b></div><div><small>Trạng thái</small><b>Đang nhận quan tâm</b></div></div><Link className="ipf-button gold" href="/#register">ĐĂNG KÝ QUAN TÂM</Link></div><div className="sport-detail-image"><Image src="/images/ciic/demo/the-duc-the-thao.webp" alt={name} fill priority sizes="(max-width:900px) 100vw, 50vw"/></div></div></section><section className="sport-info"><div className="ipf-container"><article><b>01</b><h2>Lịch tập</h2><p>Sẽ cập nhật theo khung giờ và nhóm trình độ.</p></article><article><b>02</b><h2>Địa điểm</h2><p>Sẽ cập nhật sân, sức chứa và tiện ích đi kèm.</p></article><article><b>03</b><h2>Chi phí</h2><p>Sẽ cập nhật học phí, phí sân và dịch vụ hỗ trợ.</p></article><article><b>04</b><h2>An toàn</h2><p>Sẽ cập nhật nội quy, dụng cụ và người phụ trách.</p></article></div></section></main><SiteFooter settings={settings} services={services}/></div>}

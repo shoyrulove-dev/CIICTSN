@@ -6,10 +6,10 @@ import { useEffect, useRef, useState } from "react";
 import type { SiteSettings } from "@/types/cms";
 
 const groups = [
-  { label: "GIỚI THIỆU", links: [["Về CIIC", "#about"], ["Mục tiêu", "#goals"], ["Giá trị mô hình", "#values"]] },
-  { label: "HỆ SINH THÁI", links: [["Lĩnh vực hoạt động", "#ecosystem"], ["Thể dục thể thao", "#sports"], ["Không gian CIIC", "#spaces"], ["Chương trình", "#events"]] },
-  { label: "HOẠT ĐỘNG", links: [["Lịch hoạt động", "#activities"], ["Sự kiện văn hóa", "#events"], ["Tin tức", "#news"]] },
-  { label: "THAM GIA", links: [["Người dân", "#register"], ["Doanh nghiệp / CLB", "#register"], ["Đề xuất hợp tác", "#register"]] },
+  { label: "GIỚI THIỆU", links: [["Về CIIC", "/#about"], ["Mục tiêu", "/#goals"], ["Giá trị mô hình", "/#values"]] },
+  { label: "HỆ SINH THÁI", links: [["Văn hóa — nghệ thuật", "/kham-pha/khong-gian-van-hoa-nghe-thuat"], ["Học tập & sáng tạo", "/kham-pha/cong-dong-hoc-tap-sang-tao"], ["Triển lãm — giao thương", "/kham-pha/trien-lam-hoi-cho-giao-thuong"], ["Công nghệ & nội dung số", "/kham-pha/cong-nghe-noi-dung-so"], ["Thể dục thể thao", "/kham-pha/the-duc-the-thao"]] },
+  { label: "HOẠT ĐỘNG", links: [["Lịch hoạt động", "/kham-pha/lich-hoat-dong"], ["Địa điểm & bản đồ", "/kham-pha/dia-diem-ban-do"], ["Tin tức & câu chuyện", "/kham-pha/tin-tuc-cau-chuyen"]] },
+  { label: "THAM GIA", links: [["Booking / Đăng ký", "/kham-pha/booking-dang-ky"], ["Tài khoản / Thành viên", "/kham-pha/tai-khoan-thanh-vien"], ["Đề xuất hợp tác", "/#register"]] },
 ];
 
 export function CiicHeader({ settings }: { settings: SiteSettings }) {
@@ -50,7 +50,7 @@ export function CiicHeader({ settings }: { settings: SiteSettings }) {
             <div>{group.links.map(([label, href]) => <a href={href} key={`${label}-${href}`} onClick={() => setOpenMenu(null)}>{label}</a>)}</div>
           </details>)}
         </nav>
-        <a className="ipf-cta" href="#register" onClick={() => setOpenMenu(null)}>ĐĂNG KÝ THAM GIA</a>
+        <Link className="ipf-cta" href="/#register" onClick={() => setOpenMenu(null)}>ĐĂNG KÝ THAM GIA</Link>
       </div>
     </header>
   </>;

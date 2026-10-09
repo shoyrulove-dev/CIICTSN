@@ -69,6 +69,15 @@ const appointmentSchema = new Schema(
   { timestamps: true }
 );
 
+const roadmapSchema = new Schema(
+  {
+    slug: { type: String, required: true, unique: true }, number: String, title: { type: String, required: true },
+    eyebrow: String, summary: String, image: String, groupsJson: String,
+    order: { type: Number, default: 0 }, published: { type: Boolean, default: true },
+  },
+  { timestamps: true }
+);
+
 export const SettingsModel = models.Settings || model("Settings", settingsSchema);
 export const ServiceModel = models.Service || model("Service", serviceSchema);
 export const PostModel = models.Post || model("Post", postSchema);
@@ -76,3 +85,4 @@ export const GalleryModel = models.Gallery || model("Gallery", gallerySchema);
 export const DoctorModel = models.Doctor || model("Doctor", doctorSchema);
 export const VideoModel = models.Video || model("Video", videoSchema);
 export const AppointmentModel = models.Appointment || model("Appointment", appointmentSchema);
+export const RoadmapModel = models.Roadmap || model("Roadmap", roadmapSchema);

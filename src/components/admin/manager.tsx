@@ -59,9 +59,9 @@ function ImageUploadField({
       const body = new FormData();
       body.set("file", file);
       body.set("fileName", file.name);
-      body.set("folder", `presmile/${folder}`);
+      body.set("folder", `ciic/${folder}`);
       body.set("useUniqueFileName", "true");
-      body.set("tags", "presmile,website");
+      body.set("tags", "ciic,website");
       body.set("token", String(auth.token));
       body.set("expire", String(auth.expire));
       body.set("signature", String(auth.signature));

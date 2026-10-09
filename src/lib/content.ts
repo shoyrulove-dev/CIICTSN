@@ -4,6 +4,8 @@ import { connectToDatabase } from "@/lib/db";
 import { defaultDoctors, defaultGallery, defaultPosts, defaultServices, defaultSettings, defaultVideos } from "@/lib/defaults";
 import { DoctorModel, GalleryModel, PostModel, ServiceModel, SettingsModel, VideoModel } from "@/models/cms";
 import type { Doctor, GalleryItem, Post, Service, SiteSettings, VideoItem } from "@/types/cms";
+import { roadmapModules, type RoadmapModule } from "@/lib/roadmap";
+import { RoadmapModel } from "@/models/cms";
 
 function serialize<T>(value: unknown): T {
   return JSON.parse(JSON.stringify(value)) as T;
@@ -74,3 +76,18 @@ async function loadVideos(all: boolean): Promise<VideoItem[]> {
 const loadPublishedVideos = unstable_cache(() => loadVideos(false), ["ciic-videos-published"], { revalidate: 300, tags: ["cms-videos"] });
 const loadAllVideos = unstable_cache(() => loadVideos(true), ["ciic-videos-all"], { revalidate: 300, tags: ["cms-videos"] });
 export const getVideos = cache((all = false) => all ? loadAllVideos() : loadPublishedVideos());
+
+type StoredRoadmap=Omit<RoadmapModule,"groups">&{_id?:string;groupsJson?:string;order?:number;published?:boolean};
+async function loadRoadmap(all:boolean):Promise<(RoadmapModule&{_id?:string;groupsJson?:string;order?:number;published?:boolean})[]>{
+  if(!(await connectToDatabase()))return roadmapModules;
+  const stored=serialize<StoredRoadmap[]>(await RoadmapModel.find(all?{}:{published:true}).sort({order:1}).lean());
+  const bySlug=new Map(stored.map(item=>[item.slug,item]));
+  return roadmapModules.map((fallback,index)=>{
+    const saved=bySlug.get(fallback.slug);if(!saved)return {...fallback,groupsJson:JSON.stringify(fallback.groups,null,2),order:index+1,published:true};
+    let groups=fallback.groups;try{if(saved.groupsJson)groups=JSON.parse(saved.groupsJson)}catch{}
+    return {...fallback,...saved,groups};
+  }).filter(item=>all||item.published!==false);
+}
+const loadPublicRoadmap=unstable_cache(()=>loadRoadmap(false),["ciic-roadmap-published"],{revalidate:300,tags:["cms-roadmap"]});
+const loadAllRoadmap=unstable_cache(()=>loadRoadmap(true),["ciic-roadmap-all"],{revalidate:300,tags:["cms-roadmap"]});
+export const getRoadmapModules=cache((all=false)=>all?loadAllRoadmap():loadPublicRoadmap());
