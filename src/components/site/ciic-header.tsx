@@ -7,7 +7,7 @@ import type { SiteSettings } from "@/types/cms";
 
 const groups = [
   { label: "GIỚI THIỆU", links: [["Về CIIC", "#about"], ["Mục tiêu", "#goals"], ["Giá trị mô hình", "#values"]] },
-  { label: "HỆ SINH THÁI", links: [["Lĩnh vực hoạt động", "#ecosystem"], ["Không gian CIIC", "#spaces"], ["Chương trình", "#events"]] },
+  { label: "HỆ SINH THÁI", links: [["Lĩnh vực hoạt động", "#ecosystem"], ["Thể dục thể thao", "#sports"], ["Không gian CIIC", "#spaces"], ["Chương trình", "#events"]] },
   { label: "HOẠT ĐỘNG", links: [["Lịch hoạt động", "#activities"], ["Sự kiện văn hóa", "#events"], ["Tin tức", "#news"]] },
   { label: "THAM GIA", links: [["Người dân", "#register"], ["Doanh nghiệp / CLB", "#register"], ["Đề xuất hợp tác", "#register"]] },
 ];
